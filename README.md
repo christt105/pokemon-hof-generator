@@ -12,10 +12,6 @@ Built with Godot 4, exported to HTML5 and hosted on GitHub Pages.
 - The app renders the Hall of Fame sequence with the original layout and aesthetic
 - Download the final frame as PNG or the full animation as WebM
 
-## Status
-
-Work in progress. Gen 3 (Emerald) is the first generation being implemented.
-
 ## Tech
 
 - Godot 4 (GDScript)
