@@ -12,8 +12,13 @@ config_version=5
 
 config/name="Pokemon Hall Of Fame"
 run/main_scene="uid://b8kro732bxgei"
-config/features=PackedStringArray("4.7")
+config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [rendering]
 

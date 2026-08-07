@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      GODOT_VERSION: 4.6-stable
+      GODOT_TEMPLATE_VERSION: 4.6.stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Godot editor and export templates
+        id: godot-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/local/bin/godot
+            ~/.local/share/godot/export_templates/${{ env.GODOT_TEMPLATE_VERSION }}
+          key: godot-${{ env.GODOT_VERSION }}
+
+      - name: Download Godot editor
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q "Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          sudo mv "Godot_v${GODOT_VERSION}_linux.x86_64" /usr/local/bin/godot
+          chmod +x /usr/local/bin/godot
+
+      - name: Download export templates
+        if: steps.godot-cache.outputs.cache-hit != 'true'
+        run: |
+          wget -q "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz"
+          mkdir -p "$HOME/.local/share/godot/export_templates/${GODOT_TEMPLATE_VERSION}"
+          unzip -q "Godot_v${GODOT_VERSION}_export_templates.tpz" -d /tmp/godot-templates
+          mv /tmp/godot-templates/templates/* "$HOME/.local/share/godot/export_templates/${GODOT_TEMPLATE_VERSION}/"
+
+      - name: Import project
+        working-directory: src
+        run: godot --headless --import
+
+      - name: Export Web build
+        working-directory: src
+        run: |
+          mkdir -p ../build/web
+          godot --headless --export-release "Web" ../build/web/index.html
+
+      - name: Stamp version footer
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          FOOTER="<div id=\"version-footer\" style=\"position:fixed;bottom:4px;right:8px;font:11px monospace;color:#aaa;background:rgba(0,0,0,.5);padding:2px 6px;border-radius:4px;z-index:9999;pointer-events:none;\">${VERSION}</div>"
+          sed -i "s|</body>|${FOOTER}</body>|" build/web/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/web
