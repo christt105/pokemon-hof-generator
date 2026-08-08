@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 ## Visual trainer picker: search + category filter over a grid of family
 ## thumbnails (one per character/class, redraws collapsed), then a variant
@@ -7,26 +7,23 @@ extends Panel
 signal trainer_chosen(texture: Texture2D)
 
 const TRAINER_CATALOG = preload("uid://b3e1ol1ebde30")
-
-# How many icons to load per frame while filling FamilyList. Keeps a fresh
-# search/filter from blocking the (single-threaded, web-exported) UI thread.
 const ICONS_PER_FRAME := 60
 
-@onready var search_edit: LineEdit = $VBoxContainer/Toolbar/SearchEdit
-@onready var category_option: OptionButton = $VBoxContainer/Toolbar/CategoryOption
-@onready var family_list: ItemList = $VBoxContainer/FamilyList
-@onready var variant_row: HBoxContainer = $VBoxContainer/PreviewPanel/PreviewBox/VariantScroll/VariantRow
-@onready var preview_texture: TextureRect = $VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewTexture
-@onready var name_label: Label = $VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels/NameLabel
-@onready var credit_label: Label = $VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels/CreditLabel
-@onready var confirm_button: Button = $VBoxContainer/PreviewPanel/PreviewBox/ConfirmButton
+@export var search_edit: LineEdit
+@export var category_option: OptionButton
+@export var family_list: ItemList
+@export var variant_row: HBoxContainer
+@export var preview_texture: TextureRect
+@export var name_label: Label
+@export var credit_label: Label
+@export var confirm_button: Button
 
 var _all_families: Array[TrainerCatalogFamilyData] = []
 var _visible_families: Array[TrainerCatalogFamilyData] = []
 var _selected_family: TrainerCatalogFamilyData
 var _selected_variant: TrainerSpriteData
 var _variant_button_group := ButtonGroup.new()
-var _fill_token := 0  # bumped on every new filter so a stale batched fill bails out
+var _fill_token := 0
 
 
 func _ready() -> void:
@@ -45,7 +42,7 @@ func _ready() -> void:
 
 
 func _populate_category_options() -> void:
-	category_option.add_item("Todos (%d)" % _all_families.size())
+	category_option.add_item("All (%d)" % _all_families.size())
 	category_option.set_item_metadata(0, "")
 	for category: String in TrainerCatalogData.CATEGORY_ORDER:
 		var count := 0
@@ -79,7 +76,7 @@ func _fill_family_list_batched(token: int) -> void:
 	var index := 0
 	while index < _visible_families.size():
 		if token != _fill_token:
-			return  # a newer search/filter change superseded this fill
+			return
 		var batch_end: int = mini(index + ICONS_PER_FRAME, _visible_families.size())
 		for i in range(index, batch_end):
 			var family: TrainerCatalogFamilyData = _visible_families[i]
@@ -128,7 +125,8 @@ func _select_variant(variant: TrainerSpriteData) -> void:
 	var texture: Texture2D = variant.sprite
 	preview_texture.texture = texture
 	name_label.text = variant.display_name
-	credit_label.text = ("Sprite: %s" % variant.credit) if variant.credit != "" else "Sprite: Pokémon Showdown"
+	var credit: String = variant.credit if variant.credit != "" else "Pokémon Showdown"
+	credit_label.text = ("Sprite: %s" % credit)
 	confirm_button.disabled = false
 
 

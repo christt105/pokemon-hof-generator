@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ctxaw1lgwlt8j"]
+
+[ext_resource type="Script" uid="uid://is64louaowit" path="res://scripts/trainer_selector_modal.gd" id="1_modal_script"]
+[ext_resource type="PackedScene" uid="uid://bj3epxb5wwicw" path="res://scenes/trainer_selector_panel.tscn" id="2_selector_scene"]
+
+[node name="TrainerSelectorModal" type="CanvasLayer" unique_id=383853848 node_paths=PackedStringArray("backdrop", "close_button", "trainer_selector")]
+layer = 100
+script = ExtResource("1_modal_script")
+backdrop = NodePath("ModalControl/Backdrop")
+close_button = NodePath("ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer/HeaderContainer/CloseButton")
+trainer_selector = NodePath("ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer/TrainerSelectorPanel")
+
+[node name="ModalControl" type="Control" parent="." unique_id=611404341]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="ModalControl" unique_id=953679020]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterContainer" type="CenterContainer" parent="ModalControl" unique_id=1308954532]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogPanel" type="PanelContainer" parent="ModalControl/CenterContainer" unique_id=1496651158]
+custom_minimum_size = Vector2(760, 620)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ModalControl/CenterContainer/DialogPanel" unique_id=2010222335]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer" unique_id=767314770]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderContainer" type="HBoxContainer" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer" unique_id=1132668974]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer/HeaderContainer" unique_id=1204072554]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Select Trainer Sprite"
+
+[node name="CloseButton" type="Button" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer/HeaderContainer" unique_id=873444902]
+layout_mode = 2
+text = " ✕ "
+
+[node name="HSeparator" type="HSeparator" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer" unique_id=1898527573]
+layout_mode = 2
+
+[node name="TrainerSelectorPanel" parent="ModalControl/CenterContainer/DialogPanel/MarginContainer/VBoxContainer" unique_id=41687925 instance=ExtResource("2_selector_scene")]
+layout_mode = 2

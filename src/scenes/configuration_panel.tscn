@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://bqrq71xvr0t5j"]
+
+[ext_resource type="Script" uid="uid://clniy7o51cipg" path="res://scripts/configuration_panel.gd" id="1_config_script"]
+[ext_resource type="PackedScene" uid="uid://ctxaw1lgwlt8j" path="res://scenes/trainer_selector_modal.tscn" id="2_modal_scene"]
+
+[node name="ConfigurationPanel" type="PanelContainer" unique_id=575303071 node_paths=PackedStringArray("game_option_button", "trainer_name_edit", "trainer_preview_rect", "select_trainer_button", "upload_custom_button", "slots_container", "trainer_selector_modal", "image_file_dialog")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_config_script")
+game_option_button = NodePath("ScrollContainer/MarginContainer/VBoxContainer/GameOptionButton")
+trainer_name_edit = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerNameEdit")
+trainer_preview_rect = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerPreviewRect")
+select_trainer_button = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerButtonBox/SelectTrainerButton")
+upload_custom_button = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerButtonBox/UploadCustomButton")
+slots_container = NodePath("ScrollContainer/MarginContainer/VBoxContainer/SlotsContainer")
+trainer_selector_modal = NodePath("TrainerSelectorModal")
+image_file_dialog = NodePath("ImageFileDialog")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=22836628]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer" unique_id=200124161]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer" unique_id=1440043197]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=966187178]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Hall of Fame Configurator"
+
+[node name="HSeparator1" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1641935484]
+layout_mode = 2
+
+[node name="GameHeaderLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1497282719]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Select Game"
+
+[node name="GameOptionButton" type="OptionButton" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1095114651]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1802602154]
+layout_mode = 2
+
+[node name="TrainerHeaderLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1492852403]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Trainer Details"
+
+[node name="TrainerNameEdit" type="LineEdit" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=170262255]
+layout_mode = 2
+placeholder_text = "Trainer Name (e.g. RUBY)"
+clear_button_enabled = true
+
+[node name="TrainerSpriteBox" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=552000007]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TrainerPreviewRect" type="TextureRect" parent="ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox" unique_id=139363028]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TrainerButtonBox" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox" unique_id=24837514]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="SelectTrainerButton" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerButtonBox" unique_id=1018145906]
+layout_mode = 2
+text = "Choose from Gallery..."
+
+[node name="UploadCustomButton" type="Button" parent="ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerButtonBox" unique_id=1430222231]
+layout_mode = 2
+text = "Upload Custom Image..."
+
+[node name="HSeparator3" type="HSeparator" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1069018366]
+layout_mode = 2
+
+[node name="PartyHeaderLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=1820138755]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Pokémon Party (6 Slots)"
+
+[node name="SlotsContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer" unique_id=580534793]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TrainerSelectorModal" parent="." unique_id=2010809138 instance=ExtResource("2_modal_scene")]
+visible = false
+
+[node name="ImageFileDialog" type="FileDialog" parent="." unique_id=1420995651]
+title = "Open a File"
+size = Vector2i(700, 500)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png, *.jpg, *.jpeg ; Images (*.png, *.jpg, *.jpeg)")

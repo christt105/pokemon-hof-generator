@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://pf2qok72pjug"]
+
+[ext_resource type="Script" uid="uid://dt21ti27v687o" path="res://scripts/party_slot_item.gd" id="1_slot_script"]
+
+[node name="PartySlotItem" type="PanelContainer" unique_id=242817077 node_paths=PackedStringArray("slot_label", "clear_button", "pokemon_search_edit", "form_option_button", "sprite_preview", "nickname_edit", "level_spin_box", "gender_option_button")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_slot_script")
+slot_label = NodePath("MarginContainer/VBoxContainer/HeaderRow/SlotLabel")
+clear_button = NodePath("MarginContainer/VBoxContainer/HeaderRow/ClearButton")
+pokemon_search_edit = NodePath("MarginContainer/VBoxContainer/SearchRow/PokemonSearchEdit")
+form_option_button = NodePath("MarginContainer/VBoxContainer/SearchRow/FormOptionButton")
+sprite_preview = NodePath("MarginContainer/VBoxContainer/DetailsRow/SpritePreview")
+nickname_edit = NodePath("MarginContainer/VBoxContainer/DetailsRow/DetailsGrid/NicknameEdit")
+level_spin_box = NodePath("MarginContainer/VBoxContainer/DetailsRow/DetailsGrid/LevelRow/LevelSpinBox")
+gender_option_button = NodePath("MarginContainer/VBoxContainer/DetailsRow/DetailsGrid/LevelRow/GenderOptionButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=551171400]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=158956887]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HeaderRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1250273375]
+layout_mode = 2
+
+[node name="SlotLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderRow" unique_id=166656684]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Slot #1"
+
+[node name="ClearButton" type="Button" parent="MarginContainer/VBoxContainer/HeaderRow" unique_id=1122216151]
+layout_mode = 2
+text = "Clear"
+
+[node name="SearchRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=151882045]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PokemonSearchEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SearchRow" unique_id=180674508]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search Pokémon..."
+clear_button_enabled = true
+
+[node name="FormOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/SearchRow" unique_id=1103523963]
+visible = false
+layout_mode = 2
+
+[node name="DetailsRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1889017577]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SpritePreview" type="TextureRect" parent="MarginContainer/VBoxContainer/DetailsRow" unique_id=1790931442]
+texture_filter = 1
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DetailsGrid" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DetailsRow" unique_id=595250574]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="NicknameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/DetailsRow/DetailsGrid" unique_id=2054267031]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Nickname (optional)"
+
+[node name="LevelRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/DetailsRow/DetailsGrid" unique_id=168019336]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LevelSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/DetailsRow/DetailsGrid/LevelRow" unique_id=870626346]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 50.0
+prefix = "Lvl."
+
+[node name="GenderOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/DetailsRow/DetailsGrid/LevelRow" unique_id=1271712118]
+layout_mode = 2
