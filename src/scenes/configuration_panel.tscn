@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqrq71xvr0t5j"]
 
-[ext_resource type="Script" uid="uid://clniy7o51cipg" path="res://scripts/configuration_panel.gd" id="1_config_script"]
+[ext_resource type="Script" uid="uid://clniy7o51cipg" path="res://scripts/ui/configuration_panel.gd" id="1_config_script"]
 [ext_resource type="PackedScene" uid="uid://ctxaw1lgwlt8j" path="res://scenes/trainer_selector_modal.tscn" id="2_modal_scene"]
 
 [node name="ConfigurationPanel" type="PanelContainer" unique_id=575303071 node_paths=PackedStringArray("game_option_button", "trainer_name_edit", "trainer_preview_rect", "select_trainer_button", "upload_custom_button", "slots_container", "trainer_selector_modal", "image_file_dialog")]

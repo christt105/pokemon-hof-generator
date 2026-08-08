@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="TrainerCatalogData" format=3 uid="uid://b3e1ol1ebde30"]
 
-[ext_resource type="Script" uid="uid://q6p6lit8xci4" path="res://scripts/trainer_catalog_data.gd" id="1_hmuo8"]
-[ext_resource type="Script" uid="uid://deilk2ss66jjw" path="res://scripts/trainer_catalog_family_data.gd" id="1_myrsf"]
-[ext_resource type="Script" uid="uid://cfixwbc4gt088" path="res://scripts/trainer_sprite_data.gd" id="2_hfjaa"]
+[ext_resource type="Script" uid="uid://q6p6lit8xci4" path="res://scripts/data/trainer_catalog_data.gd" id="1_hmuo8"]
+[ext_resource type="Script" uid="uid://deilk2ss66jjw" path="res://scripts/data/trainer_catalog_family_data.gd" id="1_myrsf"]
+[ext_resource type="Script" uid="uid://cfixwbc4gt088" path="res://scripts/data/trainer_sprite_data.gd" id="2_hfjaa"]
 [ext_resource type="Texture2D" uid="uid://bmdibsjracfkn" path="res://assets/sprites/trainers/aaron.png" id="3_qvvrm"]
 [ext_resource type="Texture2D" uid="uid://b87kp4nu1bc2y" path="res://assets/sprites/trainers/aarune.png" id="4_6lbs2"]
 [ext_resource type="Texture2D" uid="uid://1lqei6nqxepw" path="res://assets/sprites/trainers/acerola.png" id="5_141yy"]

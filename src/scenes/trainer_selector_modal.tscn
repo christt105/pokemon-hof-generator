@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ctxaw1lgwlt8j"]
 
-[ext_resource type="Script" uid="uid://is64louaowit" path="res://scripts/trainer_selector_modal.gd" id="1_modal_script"]
+[ext_resource type="Script" uid="uid://is64louaowit" path="res://scripts/ui/trainer_selector_modal.gd" id="1_modal_script"]
 [ext_resource type="PackedScene" uid="uid://bj3epxb5wwicw" path="res://scenes/trainer_selector_panel.tscn" id="2_selector_scene"]
 
 [node name="TrainerSelectorModal" type="CanvasLayer" unique_id=383853848 node_paths=PackedStringArray("backdrop", "close_button", "trainer_selector")]

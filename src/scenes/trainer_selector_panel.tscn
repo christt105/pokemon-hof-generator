@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bj3epxb5wwicw"]
 
-[ext_resource type="Script" uid="uid://4mfcdypi0if1" path="res://scripts/trainer_selector_panel.gd" id="1_jbufv"]
+[ext_resource type="Script" uid="uid://4mfcdypi0if1" path="res://scripts/ui/trainer_selector_panel.gd" id="1_jbufv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
 bg_color = Color(0.121569, 0.133333, 0.168627, 1)
@@ -116,14 +116,13 @@ custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
 
 [node name="VariantRow" type="HFlowContainer" parent="MainVBox/ContentHBox/PreviewPanel/MarginContainer/PreviewBox/VariantScroll" unique_id=2014687234]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
+alignment = 1
 
 [node name="Spacer" type="Control" parent="MainVBox/ContentHBox/PreviewPanel/MarginContainer/PreviewBox" unique_id=983104928]
 layout_mode = 2

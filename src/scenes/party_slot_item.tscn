@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://pf2qok72pjug"]
 
-[ext_resource type="Script" uid="uid://dt21ti27v687o" path="res://scripts/party_slot_item.gd" id="1_slot_script"]
+[ext_resource type="Script" uid="uid://dt21ti27v687o" path="res://scripts/ui/party_slot_item.gd" id="1_slot_script"]
 
 [node name="PartySlotItem" type="PanelContainer" unique_id=242817077 node_paths=PackedStringArray("slot_label", "clear_button", "pokemon_search_edit", "form_option_button", "sprite_preview", "nickname_edit", "level_spin_box", "gender_option_button")]
 anchors_preset = 10
