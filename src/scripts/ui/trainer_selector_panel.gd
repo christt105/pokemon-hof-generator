@@ -22,6 +22,7 @@ var _all_families: Array[TrainerCatalogFamilyData] = []
 var _visible_families: Array[TrainerCatalogFamilyData] = []
 var _selected_family: TrainerCatalogFamilyData
 var _selected_variant: TrainerSpriteData
+var _button_group: ButtonGroup = ButtonGroup.new()
 var _fill_token := 0
 
 
@@ -105,6 +106,9 @@ func _populate_variant_row() -> void:
 		variant_row.remove_child(child)
 		child.queue_free()
 
+	
+	_button_group = ButtonGroup.new()
+
 	var variant_scroll: ScrollContainer = variant_row.get_parent() as ScrollContainer
 	if variant_scroll != null:
 		variant_scroll.visible = (_selected_family.variants.size() > 1)
@@ -120,7 +124,7 @@ func _populate_variant_row() -> void:
 		button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		button.tooltip_text = variant.display_name
 		button.toggle_mode = true
-		button.button_group = ButtonGroup.new()
+		button.button_group = _button_group
 		button.pressed.connect(_select_variant.bind(variant))
 		variant_row.add_child(button)
 
