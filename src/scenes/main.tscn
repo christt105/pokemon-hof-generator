@@ -1,7 +1,23 @@
 [gd_scene format=3 uid="uid://b8kro732bxgei"]
 
 [ext_resource type="PackedScene" uid="uid://eol8llvfsc6n" path="res://scenes/test.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://bj3epxb5wwicw" path="res://scenes/configurator_panel.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node" unique_id=581270118]
 
-[node name="Test" parent="." unique_id=1234784034 instance=ExtResource("1_o5qli")]
+[node name="Workspace" type="BoxContainer" parent="." unique_id=1717462824]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Test" parent="Workspace" unique_id=1234784034 instance=ExtResource("1_o5qli")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Workspace" unique_id=1648283896]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConfiguratorPanel" parent="Workspace/ScrollContainer" unique_id=1500299226 instance=ExtResource("2_0wfyh")]
+layout_mode = 2
