@@ -36,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DialogPanel" type="PanelContainer" parent="ModalControl/CenterContainer" unique_id=1496651158]
-custom_minimum_size = Vector2(760, 620)
+custom_minimum_size = Vector2(860, 640)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="ModalControl/CenterContainer/DialogPanel" unique_id=2010222335]

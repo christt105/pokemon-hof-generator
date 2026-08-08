@@ -12,7 +12,7 @@ const ICONS_PER_FRAME := 60
 @export var search_edit: LineEdit
 @export var category_option: OptionButton
 @export var family_list: ItemList
-@export var variant_row: HBoxContainer
+@export var variant_row: Container
 @export var preview_texture: TextureRect
 @export var name_label: Label
 @export var credit_label: Label
@@ -22,7 +22,6 @@ var _all_families: Array[TrainerCatalogFamilyData] = []
 var _visible_families: Array[TrainerCatalogFamilyData] = []
 var _selected_family: TrainerCatalogFamilyData
 var _selected_variant: TrainerSpriteData
-var _variant_button_group := ButtonGroup.new()
 var _fill_token := 0
 
 
@@ -90,6 +89,10 @@ func _fill_family_list_batched(token: int) -> void:
 		if index < _visible_families.size():
 			await get_tree().process_frame
 
+	if _visible_families.size() > 0 and family_list.get_item_count() > 0 and not family_list.is_anything_selected():
+		family_list.select(0)
+		_on_family_item_selected(0)
+
 
 func _on_family_item_selected(item_index: int) -> void:
 	var family_index: int = family_list.get_item_metadata(item_index)
@@ -99,25 +102,35 @@ func _on_family_item_selected(item_index: int) -> void:
 
 func _populate_variant_row() -> void:
 	for child: Node in variant_row.get_children():
+		variant_row.remove_child(child)
 		child.queue_free()
 
+	var variant_scroll: ScrollContainer = variant_row.get_parent() as ScrollContainer
+	if variant_scroll != null:
+		variant_scroll.visible = (_selected_family.variants.size() > 1)
+		variant_scroll.scroll_vertical = 0
+
+	var first_button: Button = null
+
 	for variant: TrainerSpriteData in _selected_family.variants:
-		var button := TextureButton.new()
-		button.texture_normal = variant.sprite
-		button.ignore_texture_size = true
-		button.custom_minimum_size = Vector2(48, 48)
-		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+		var button := Button.new()
+		button.icon = variant.sprite
+		button.expand_icon = true
+		button.custom_minimum_size = Vector2(44, 44)
 		button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		button.tooltip_text = variant.display_name
 		button.toggle_mode = true
-		button.button_group = _variant_button_group
+		button.button_group = ButtonGroup.new()
 		button.pressed.connect(_select_variant.bind(variant))
 		variant_row.add_child(button)
 
-	if _selected_family.variants.size() > 0:
-		var first_button: TextureButton = variant_row.get_child(0)
+		if first_button == null:
+			first_button = button
+
+	if first_button != null and _selected_family.variants.size() > 0:
 		first_button.button_pressed = true
 		_select_variant(_selected_family.variants[0])
+
 
 
 func _select_variant(variant: TrainerSpriteData) -> void:
