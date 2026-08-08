@@ -1,21 +1,17 @@
-class_name TrainerCatalog
+class_name TrainerCatalogBuilder
 extends RefCounted
 
-## Scans res://assets/sprites/trainers, groups the ~1500 sprites into "families"
-## (e.g. brock, brock-gen1, brock-gen2, brock-lgpe -> family "brock"), and
-## classifies each family into a coarse category using res://data/trainer_categories.json.
+## Editor-side builder: scans res://assets/sprites/trainers, groups the
+## ~1500 sprites into "families" (e.g. brock, brock-gen1, brock-gen2,
+## brock-lgpe -> family "brock"), classifies each family into a coarse
+## category via res://data/trainer_categories.json, and bakes the result
+## into a TrainerCatalogData Resource. Run from tools/sync_trainer_sprites.gd
+## — the game itself only ever loads the baked .tres, it never runs this.
 
 const TRAINERS_DIR := "res://assets/sprites/trainers/"
 const CREDITS_PATH := "res://data/trainer_credits.json"
 const CATEGORIES_PATH := "res://data/trainer_categories.json"
-
-const CATEGORY_ORDER: Array[String] = ["protagonists", "teams", "generic", "characters"]
-const CATEGORY_LABELS := {
-	"protagonists": "Protagonistas",
-	"teams": "Equipos",
-	"generic": "Entrenadores",
-	"characters": "Personajes",
-}
+const CATALOG_PATH := "res://data/trainer_catalog.tres"
 
 # Strips known redraw/variant suffixes (gen1, masters2, anime, contest, league...)
 # so different art versions of the same character collapse into one family.
@@ -36,9 +32,32 @@ func _init() -> void:
 			_family_category[family_key] = category
 
 
+## Scans + classifies, then wraps the result in a saveable TrainerCatalogData.
+func build() -> TrainerCatalogData:
+	var data := TrainerCatalogData.new()
+	data.families = load_families()
+	data.generated_unix_time = int(Time.get_unix_time_from_system())
+	return data
+
+
+## Family dictionaries present in `families` whose key wasn't present in
+## `previous` (or all of them, if `previous` is null — e.g. first ever run).
+## Lets the caller flag freshly-appeared characters that still need a manual
+## look in trainer_categories.json (they default to "characters" otherwise).
+func diff_new_families(families: Array[TrainerCatalogFamilyData], previous: TrainerCatalogData) -> Array[TrainerCatalogFamilyData]:
+	if previous == null:
+		return []
+	var previous_keys := {}
+	for family: TrainerCatalogFamilyData in previous.families:
+		previous_keys[family.key] = true
+	return families.filter(func(family: TrainerCatalogFamilyData) -> bool:
+		return not previous_keys.has(family.key)
+	)
+
+
 ## Returns families sorted by display name, each a Dictionary:
 ## { key, category, display_name, variants: [{ file, path, display_name, credit }] }
-func load_families() -> Array[Dictionary]:
+func load_families() -> Array[TrainerCatalogFamilyData]:
 	var dir := DirAccess.open(TRAINERS_DIR)
 	if dir == null:
 		printerr("TrainerCatalog: could not open %s" % TRAINERS_DIR)
@@ -57,7 +76,7 @@ func load_families() -> Array[Dictionary]:
 		file_name = dir.get_next()
 	dir.list_dir_end()
 
-	var families: Array[Dictionary] = []
+	var families: Array[TrainerCatalogFamilyData] = []
 	for family_key: String in by_family.keys():
 		var stems: Array = by_family[family_key]
 		stems.sort_custom(func(a: String, b: String) -> bool:
@@ -68,25 +87,24 @@ func load_families() -> Array[Dictionary]:
 			return a < b
 		)
 
-		var variants: Array[Dictionary] = []
+		var variants: Array[TrainerSpriteData] = []
 		for stem: String in stems:
 			var filename := "%s.png" % stem
-			variants.append({
-				"file": filename,
-				"path": TRAINERS_DIR + filename,
-				"display_name": _humanize(stem),
-				"credit": _credits.get(filename, ""),
-			})
+			variants.append(TrainerSpriteData.new(
+				_humanize(stem),
+				load(TRAINERS_DIR + filename),
+				_credits.get(filename, ""),
+			))
 
-		families.append({
-			"key": family_key,
-			"category": _family_category.get(family_key, "characters"),
-			"display_name": _humanize(family_key),
-			"variants": variants,
-		})
+		families.append(TrainerCatalogFamilyData.new(
+			_family_category.get(family_key, "characters"),
+			_humanize(family_key),
+			family_key,
+			variants,
+		))
 
-	families.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
-		return a["display_name"].naturalnocasecmp_to(b["display_name"]) < 0
+	families.sort_custom(func(a: TrainerCatalogFamilyData, b: TrainerCatalogFamilyData) -> bool:
+		return a.display_name.naturalnocasecmp_to(b.display_name) < 0
 	)
 	return families
 

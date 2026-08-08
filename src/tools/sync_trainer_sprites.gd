@@ -28,7 +28,7 @@ func _run() -> void:
 
 	var entries := _parse_sprites(html)
 	if entries.is_empty():
-		printerr("No sprites found — the Showdown page format may have changed")
+		printerr("No sprites found | the Showdown page format may have changed")
 		return
 	print("Found %d sprites on Showdown" % entries.size())
 
@@ -79,8 +79,45 @@ func _run() -> void:
 	print("Done. Downloaded: %d | already present: %d | failed: %d | total tracked: %d" % [downloaded, skipped, failed, entries.size()])
 	print("Credits written to %s (%d credited sprites)" % [CREDITS_PATH, credits.size()])
 
-	if downloaded > 0:
-		EditorInterface.get_resource_filesystem().scan()
+	_rebuild_catalog()
+
+	# Re-scan unconditionally: new .png imports and/or the regenerated
+	# catalog .tres both need to show up in the FileSystem dock.
+	EditorInterface.get_resource_filesystem().scan()
+
+
+# Rebuilds the family/category/credit catalog from whatever is on disk right
+# now (sprites just downloaded + trainer_categories.json) and bakes it into
+# res://data/trainer_catalog.tres, so the game never has to scan or classify
+# sprites itself at runtime. Runs even if no new sprite was downloaded, so a
+# manual edit to trainer_categories.json is picked up on the next sync too.
+func _rebuild_catalog() -> void:
+	var builder := TrainerCatalogBuilder.new()
+	var previous: TrainerCatalogData = null
+	if ResourceLoader.exists(TrainerCatalogBuilder.CATALOG_PATH):
+		previous = load(TrainerCatalogBuilder.CATALOG_PATH)
+
+	var catalog := builder.build()
+	var new_families := builder.diff_new_families(catalog.families, previous)
+
+	var save_err := ResourceSaver.save(catalog, TrainerCatalogBuilder.CATALOG_PATH)
+	if save_err != OK:
+		printerr("Could not save trainer catalog (error %d)" % save_err)
+		return
+	var sprite_count := 0
+	for family: TrainerCatalogFamilyData in catalog.families:
+		sprite_count += family.variants.size()
+	print("Catalog written to %s (%d families, %d sprites)" % [
+		TrainerCatalogBuilder.CATALOG_PATH, catalog.families.size(), sprite_count,
+	])
+
+	if new_families.is_empty():
+		return
+	print("New families detected (%d) | check the category %s:" % [
+		new_families.size(), TrainerCatalogBuilder.CATEGORIES_PATH,
+	])
+	for family: TrainerCatalogFamilyData in new_families:
+		print("  - %s -> %s" % [family.key, TrainerCatalogData.CATEGORY_LABELS[family.category]])
 
 
 func _connect(client: HTTPClient) -> Error:

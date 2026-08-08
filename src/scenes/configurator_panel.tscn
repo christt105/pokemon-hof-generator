@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4mfcdypi0if1" path="res://scripts/configurator_panel.gd" id="1_jbufv"]
 
-[node name="ConfiguratorPanel" type="Panel" unique_id=1500299226]
+[node name="TrainerSelector" type="Panel" unique_id=1500299226]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,72 +21,70 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="Toolbar" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Toolbar" type="HBoxContainer" parent="VBoxContainer" unique_id=1394960108]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="SearchEdit" type="LineEdit" parent="VBoxContainer/Toolbar"]
+[node name="SearchEdit" type="LineEdit" parent="VBoxContainer/Toolbar" unique_id=1950770108]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Buscar entrenador..."
 clear_button_enabled = true
 
-[node name="CategoryOption" type="OptionButton" parent="VBoxContainer/Toolbar"]
+[node name="CategoryOption" type="OptionButton" parent="VBoxContainer/Toolbar" unique_id=861861149]
 layout_mode = 2
 
-[node name="FamilyList" type="ItemList" parent="VBoxContainer"]
+[node name="FamilyList" type="ItemList" parent="VBoxContainer" unique_id=1008277887]
 custom_minimum_size = Vector2(0, 360)
 layout_mode = 2
 size_flags_vertical = 3
 max_columns = 0
 same_column_width = true
-fixed_icon_size = Vector2(48, 48)
 icon_mode = 0
+fixed_icon_size = Vector2i(48, 48)
 
-[node name="PreviewPanel" type="PanelContainer" parent="VBoxContainer"]
+[node name="PreviewPanel" type="PanelContainer" parent="VBoxContainer" unique_id=2099720397]
 layout_mode = 2
 
-[node name="PreviewBox" type="VBoxContainer" parent="VBoxContainer/PreviewPanel"]
+[node name="PreviewBox" type="VBoxContainer" parent="VBoxContainer/PreviewPanel" unique_id=1356900619]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="PreviewHeader" type="HBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox"]
+[node name="PreviewHeader" type="HBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox" unique_id=48502262]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PreviewTexture" type="TextureRect" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader"]
+[node name="PreviewTexture" type="TextureRect" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader" unique_id=1585227132]
+texture_filter = 1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 0
-texture_filter = 1
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PreviewLabels" type="VBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader"]
+[node name="PreviewLabels" type="VBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader" unique_id=1554933064]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels" unique_id=1909684133]
 layout_mode = 2
-text = "Selecciona un entrenador"
 theme_override_font_sizes/font_size = 18
+text = "Selecciona un entrenador"
 
-[node name="CreditLabel" type="Label" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels"]
-layout_mode = 2
+[node name="CreditLabel" type="Label" parent="VBoxContainer/PreviewPanel/PreviewBox/PreviewHeader/PreviewLabels" unique_id=1941241593]
 modulate = Color(1, 1, 1, 0.6)
-text = ""
+layout_mode = 2
 
-[node name="VariantScroll" type="ScrollContainer" parent="VBoxContainer/PreviewPanel/PreviewBox"]
+[node name="VariantScroll" type="ScrollContainer" parent="VBoxContainer/PreviewPanel/PreviewBox" unique_id=389300513]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 vertical_scroll_mode = 0
 
-[node name="VariantRow" type="HBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox/VariantScroll"]
+[node name="VariantRow" type="HBoxContainer" parent="VBoxContainer/PreviewPanel/PreviewBox/VariantScroll" unique_id=1931415755]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="ConfirmButton" type="Button" parent="VBoxContainer/PreviewPanel/PreviewBox"]
+[node name="ConfirmButton" type="Button" parent="VBoxContainer/PreviewPanel/PreviewBox" unique_id=1117811003]
 layout_mode = 2
 disabled = true
 text = "Usar este entrenador"
