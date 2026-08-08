@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bj3epxb5wwicw"]
 
-[ext_resource type="Script" uid="uid://4mfcdypi0if1" path="res://scripts/configurator_panel.gd" id="1_jbufv"]
+[ext_resource type="Script" uid="uid://4mfcdypi0if1" path="res://scripts/trainer_selector_panel.gd" id="1_jbufv"]
 
 [node name="TrainerSelector" type="Panel" unique_id=1500299226]
 anchors_preset = 15
