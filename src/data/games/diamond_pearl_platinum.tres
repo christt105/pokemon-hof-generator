@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameOptionData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/game_option_data.gd" id="1_game"]
+
+[resource]
+script = ExtResource("1_game")
+id = "diamond_pearl_platinum"
+name = "Pokémon Diamond / Pearl / Platinum"
+generation = 4
+region = "Sinnoh"
+max_pokedex_number = 493
+is_supported = false
+versions = Array[String](["Diamond", "Pearl", "Platinum"])
+release_year = 2006
+hall_of_fame_capacity = 6
+sprite_style = "gen4"

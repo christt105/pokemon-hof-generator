@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameOptionData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/game_option_data.gd" id="1_game"]
+
+[resource]
+script = ExtResource("1_game")
+id = "gold_silver_crystal"
+name = "Pokémon Gold / Silver / Crystal"
+generation = 2
+region = "Johto"
+max_pokedex_number = 251
+is_supported = false
+versions = Array[String](["Gold", "Silver", "Crystal"])
+release_year = 1999
+hall_of_fame_capacity = 6
+sprite_style = "gen2"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GameOptionData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/game_option_data.gd" id="1_game"]
+
+[resource]
+script = ExtResource("1_game")
+id = "ruby_sapphire"
+name = "Pokémon Ruby / Sapphire"
+generation = 3
+region = "Hoenn"
+max_pokedex_number = 386
+is_supported = false
+versions = Array[String](["Ruby", "Sapphire"])
+release_year = 2002
+hall_of_fame_capacity = 6
+sprite_style = "gen3"

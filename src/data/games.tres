@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameCatalogData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/game_catalog_data.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://data/games/emerald.tres" id="2_emerald"]
+[ext_resource type="Resource" path="res://data/games/red_blue.tres" id="3_red_blue"]
+
+[resource]
+script = ExtResource("1_catalog")
+games = Array[Resource]([ExtResource("2_emerald"), ExtResource("3_red_blue")])

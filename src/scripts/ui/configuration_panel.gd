@@ -9,7 +9,10 @@ signal trainer_changed(trainer_name: String, trainer_sprite: Texture2D)
 signal party_slot_changed(slot_index: int, member_data: Dictionary)
 
 const PARTY_SLOT_ITEM_SCENE = preload("res://scenes/party_slot_item.tscn")
+const DEFAULT_GAMES_CATALOG_PATH = "res://data/games.tres"
 
+@export var game_catalog: GameCatalogData
+@export var game_options: Array[GameOptionData] = []
 @export var game_option_button: OptionButton
 @export var trainer_name_edit: LineEdit
 @export var trainer_preview_rect: TextureRect
@@ -39,38 +42,32 @@ func _ready() -> void:
 
 func _setup_game_options() -> void:
 	game_option_button.clear()
-	game_option_button.add_item("Gen 3 — Pokémon Emerald")
-	game_option_button.set_item_metadata(0, "emerald")
+	game_options.clear()
 
-	game_option_button.add_item("Gen 1 — Pokémon Red / Blue (Coming Soon)")
-	game_option_button.set_item_metadata(1, "red_blue")
-	game_option_button.set_item_disabled(1, true)
+	var catalog := game_catalog
+	if catalog == null and ResourceLoader.exists(DEFAULT_GAMES_CATALOG_PATH):
+		catalog = load(DEFAULT_GAMES_CATALOG_PATH) as GameCatalogData
 
-	game_option_button.add_item("Gen 1 — Pokémon Yellow (Coming Soon)")
-	game_option_button.set_item_metadata(2, "yellow")
-	game_option_button.set_item_disabled(2, true)
+	if catalog != null:
+		game_options = catalog.games
 
-	game_option_button.add_item("Gen 2 — Pokémon Gold / Silver / Crystal (Coming Soon)")
-	game_option_button.set_item_metadata(3, "gold_silver_crystal")
-	game_option_button.set_item_disabled(3, true)
+	for i in range(game_options.size()):
+		var game_data := game_options[i]
+		if game_data == null:
+			continue
+		game_option_button.add_item(game_data.get_display_text())
+		game_option_button.set_item_metadata(i, game_data.id)
+		game_option_button.set_item_disabled(i, not game_data.is_supported)
 
-	game_option_button.add_item("Gen 3 — Pokémon Ruby / Sapphire (Coming Soon)")
-	game_option_button.set_item_metadata(4, "ruby_sapphire")
-	game_option_button.set_item_disabled(4, true)
+	if game_option_button.item_count > 0:
+		game_option_button.select(0)
 
-	game_option_button.add_item("Gen 3 — Pokémon FireRed / LeafGreen (Coming Soon)")
-	game_option_button.set_item_metadata(5, "firered_leafgreen")
-	game_option_button.set_item_disabled(5, true)
 
-	game_option_button.add_item("Gen 4 — Pokémon Diamond / Pearl / Platinum (Coming Soon)")
-	game_option_button.set_item_metadata(6, "diamond_pearl_platinum")
-	game_option_button.set_item_disabled(6, true)
-
-	game_option_button.add_item("Gen 5 — Pokémon Black / White (Coming Soon)")
-	game_option_button.set_item_metadata(7, "black_white")
-	game_option_button.set_item_disabled(7, true)
-
-	game_option_button.select(0)
+func get_selected_game_data() -> GameOptionData:
+	var selected_idx := game_option_button.selected
+	if selected_idx >= 0 and selected_idx < game_options.size():
+		return game_options[selected_idx]
+	return null
 
 
 func _instantiate_party_slots() -> void:
