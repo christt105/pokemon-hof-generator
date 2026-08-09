@@ -1,16 +1,13 @@
-[gd_resource type="Resource" script_class="GameOptionData" format=3]
+[gd_resource type="Resource" script_class="GameOptionData" format=3 uid="uid://betv4tidjrhty"]
 
-[ext_resource type="Script" path="res://scripts/data/game_option_data.gd" id="1_game"]
+[ext_resource type="Script" uid="uid://dsxy6eb81wvcq" path="res://scripts/data/game_option_data.gd" id="1_game"]
 
 [resource]
 script = ExtResource("1_game")
 id = "red_blue"
 name = "Pokémon Red / Blue"
-generation = 1
 region = "Kanto"
-max_pokedex_number = 151
 is_supported = true
 versions = Array[String](["Red", "Blue"])
 release_year = 1996
-hall_of_fame_capacity = 6
 sprite_style = "gen1"

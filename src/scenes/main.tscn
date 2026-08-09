@@ -1,21 +1,19 @@
 [gd_scene format=3 uid="uid://b8kro732bxgei"]
 
 [ext_resource type="PackedScene" uid="uid://bqrq71xvr0t5j" path="res://scenes/configuration_panel.tscn" id="1_config_scene"]
-[ext_resource type="PackedScene" uid="uid://eol8llvfsc6n" path="res://scenes/test.tscn" id="2_test_scene"]
+[ext_resource type="PackedScene" uid="uid://eol8llvfsc6n" path="res://scenes/composition_panel.tscn" id="2_test_scene"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1933198100]
 
-[node name="Workspace" type="BoxContainer" parent="."]
+[node name="Workspace" type="BoxContainer" parent="." unique_id=800297169]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ConfigurationPanel" parent="Workspace" instance=ExtResource("1_config_scene")]
+[node name="ConfigurationPanel" parent="Workspace" unique_id=868802356 instance=ExtResource("1_config_scene")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="CompositionPane" parent="Workspace" instance=ExtResource("2_test_scene")]
+[node name="CompositionPanel" parent="Workspace" unique_id=602219066 instance=ExtResource("2_test_scene")]
 layout_mode = 2
-size_flags_horizontal = 3

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://eol8llvfsc6n"]
+
+[ext_resource type="Texture2D" uid="uid://bs4gwegunlwj1" path="res://assets/sprites/trainers/brendan-gen3.png" id="1_817xt"]
+
+[node name="CompositionPanel" type="Control" unique_id=1234784034]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=399938507]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=899686194]
+handle_input_locally = false
+size = Vector2i(240, 160)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=568125560]
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=793214435]
+position = Vector2(120, 70)
+texture = ExtResource("1_817xt")

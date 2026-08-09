@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dsxy6eb81wvcq" path="res://scripts/data/game_option_data.gd" id="1_4u1wh"]
 [ext_resource type="Script" uid="uid://capm103b2bhoo" path="res://scripts/data/game_catalog_data.gd" id="1_catalog"]
 [ext_resource type="Resource" uid="uid://ds6314dapj5sg" path="res://data/games/emerald.tres" id="2_emerald"]
-[ext_resource type="Resource" path="res://data/games/red_blue.tres" id="3_red_blue"]
+[ext_resource type="Resource" uid="uid://betv4tidjrhty" path="res://data/games/red_blue.tres" id="3_red_blue"]
 
 [resource]
 script = ExtResource("1_catalog")
-games = Array[ExtResource("1_4u1wh")]([ExtResource("2_emerald"), ExtResource("3_red_blue")])
+games = Array[ExtResource("1_4u1wh")]([ExtResource("3_red_blue"), ExtResource("2_emerald")])
