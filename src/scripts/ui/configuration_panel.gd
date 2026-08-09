@@ -8,8 +8,7 @@ signal game_changed(game_id: String)
 signal trainer_changed(trainer_name: String, trainer_sprite: Texture2D)
 signal party_slot_changed(slot_index: int, member_data: Dictionary)
 
-const PARTY_SLOT_ITEM_SCENE = preload("res://scenes/party_slot_item.tscn")
-const DEFAULT_GAMES_CATALOG_PATH = "res://data/games.tres"
+const PARTY_SLOT_ITEM_SCENE = preload("uid://pf2qok72pjug")
 
 @export var game_catalog: GameCatalogData
 @export var game_options: Array[GameOptionData] = []
@@ -43,14 +42,9 @@ func _ready() -> void:
 func _setup_game_options() -> void:
 	game_option_button.clear()
 	game_options.clear()
-
-	var catalog := game_catalog
-	if catalog == null and ResourceLoader.exists(DEFAULT_GAMES_CATALOG_PATH):
-		catalog = load(DEFAULT_GAMES_CATALOG_PATH) as GameCatalogData
-
-	if catalog != null:
-		game_options = catalog.games
-
+	
+	game_options = game_catalog.games
+	
 	for i in range(game_options.size()):
 		var game_data := game_options[i]
 		if game_data == null:
@@ -58,7 +52,7 @@ func _setup_game_options() -> void:
 		game_option_button.add_item(game_data.get_display_text())
 		game_option_button.set_item_metadata(i, game_data.id)
 		game_option_button.set_item_disabled(i, not game_data.is_supported)
-
+		
 	if game_option_button.item_count > 0:
 		game_option_button.select(0)
 
@@ -74,7 +68,7 @@ func _instantiate_party_slots() -> void:
 	for child in slots_container.get_children():
 		child.queue_free()
 	_slot_items.clear()
-
+	
 	for i in range(6):
 		var slot_instance: Node = PARTY_SLOT_ITEM_SCENE.instantiate()
 		slot_instance.set("slot_index", i)

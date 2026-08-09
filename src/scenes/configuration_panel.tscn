@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqrq71xvr0t5j"]
 
 [ext_resource type="Script" uid="uid://clniy7o51cipg" path="res://scripts/ui/configuration_panel.gd" id="1_config_script"]
+[ext_resource type="Resource" uid="uid://dentcip7gwkwq" path="res://data/games.tres" id="2_kynw6"]
 [ext_resource type="PackedScene" uid="uid://ctxaw1lgwlt8j" path="res://scenes/trainer_selector_modal.tscn" id="2_modal_scene"]
 
 [node name="ConfigurationPanel" type="PanelContainer" unique_id=575303071 node_paths=PackedStringArray("game_option_button", "trainer_name_edit", "trainer_preview_rect", "select_trainer_button", "upload_custom_button", "slots_container", "trainer_selector_modal", "image_file_dialog")]
@@ -12,6 +13,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_config_script")
+game_catalog = ExtResource("2_kynw6")
 game_option_button = NodePath("ScrollContainer/MarginContainer/VBoxContainer/GameOptionButton")
 trainer_name_edit = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerNameEdit")
 trainer_preview_rect = NodePath("ScrollContainer/MarginContainer/VBoxContainer/TrainerSpriteBox/TrainerPreviewRect")

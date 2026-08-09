@@ -17,7 +17,4 @@ extends Resource
 
 
 func get_display_text() -> String:
-	if is_supported:
-		return "Gen %d — %s" % [generation, name]
-	else:
-		return "Gen %d — %s (Coming Soon)" % [generation, name]
+	return "Gen %d - %s" % [generation, name]
